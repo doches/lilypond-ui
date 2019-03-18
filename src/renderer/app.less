@@ -1,0 +1,85 @@
+@import "~@blueprintjs/core/lib/less/variables.less";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+
+.app {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.app-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: @light-gray5;
+  color: @dark-gray1;
+
+  .app-toolbar {
+    height: @pt-navbar-height;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: @light-gray2;
+    padding: @pt-grid-size;
+    border-bottom: 1px solid @light-gray1;
+  }
+
+  .app-content {
+    margin-top: @pt-navbar-height;
+    overflow: hidden;
+    height: calc(100% - @pt-navbar-height);
+    position: relative;
+  }
+
+  .app-raw-output {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    padding: @pt-grid-size;
+    background-color: @dark-gray3;
+    color: @white;
+    font-family: monospace;
+  }
+
+  .Resizer.vertical {
+    width: 3px;
+    background-color: @light-gray1;
+    cursor: pointer;
+    position: relative;
+  }
+
+  // .Resizer.vertical::after {
+  //   content: " ";
+  //   width: @pt-grid-size;
+  //   border-radius: @pt-border-radius;
+  //   background-color: @light-gray5;
+  //   border: 1px solid @light-gray2;
+  //   box-shadow: 1px 1px 5px fadeout(@dark-gray5, 50%);
+  //   z-index: 9;
+  //   height: @pt-grid-size * 4;
+  //   position: absolute;
+  //   top: 50%;
+  //   margin-top: -@pt-grid-size * 2;
+  //   left: -@pt-grid-size / 2 + 2;
+  //   transition: background 120ms ease-out;
+  // }
+  //
+  // .Resizer.vertical:hover::after {
+  //   background-color: @white;
+  // }
+
+  .Resizer.horizontal {
+    height: 3px;
+    background-color: @light-gray1;
+    cursor: pointer;
+    position: relative;
+  }
+}

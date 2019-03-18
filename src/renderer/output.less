@@ -1,0 +1,64 @@
+@import "~@blueprintjs/core/lib/less/variables.less";
+
+.app-output {
+  .react-pdf__Page__canvas {
+    margin: @pt-grid-size auto;
+    box-shadow: 1px 1px 5px fadeout(@dark-gray1, 50%);
+  }
+
+  .output-pdf {
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .output-pagination {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .pagination {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+
+      li {
+        flex: 0;
+        padding: @pt-grid-size;
+        background-color: fadeout(@dark-gray1, 90%);
+        a {
+          color: @dark-gray5;
+          text-decoration: none;
+        }
+        transition: all 120ms ease-out;
+      }
+
+      li:first-of-type {
+        border-top-left-radius: @pt-border-radius;
+        border-bottom-left-radius: @pt-border-radius;
+      }
+
+      li:last-of-type {
+        border-top-right-radius: @pt-border-radius;
+        border-bottom-right-radius: @pt-border-radius;
+      }
+    }
+
+    .pagination:hover {
+      li {
+        background-color: fadeout(@dark-gray1, 10%);
+
+        a {
+          color: @white;
+        }
+      }
+    }
+  }
+}
