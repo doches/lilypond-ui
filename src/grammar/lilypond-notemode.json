@@ -1,0 +1,53 @@
+{
+  "name": "LilyPond-notemode",
+  "patterns": [
+    {
+      "include": "source.lilypond-notedrum"
+    },
+    {
+      "begin": "({)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "name": "meta.lilypond.notemode",
+      "patterns": [
+        {
+          "include": "$self"
+        }
+      ]
+    },
+    {
+      "include": "source.lilypond-notenames"
+    },
+    {
+      "include": "source.lilypond-internals"
+    },
+    {
+      "include": "source.lilypond-drummode"
+    },
+    {
+      "include": "source.lilypond-lyricsmode"
+    },
+    {
+      "include": "source.lilypond-notemode-explicit"
+    },
+    {
+      "include": "source.lilypond-markupmode"
+    },
+    {
+      "include": "source.lilypond-figbassmode"
+    },
+    {
+      "include": "source.lilypond-schememode"
+    }
+  ],
+  "scopeName": "source.lilypond-notemode"
+}

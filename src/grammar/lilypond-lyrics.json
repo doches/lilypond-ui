@@ -1,0 +1,132 @@
+{
+  "name": "LilyPond-lyrics",
+  "patterns": [
+    {
+      "begin": "([-_^](\\s*))?(((\\\\lyrics\\s*)({))|((\\\\lyricmode\\s*)({))|((\\\\addlyrics\\s*)({))|((\\\\lyricsto\\s*(\\\".*\\\")\\s*)({))|(((\\\\lyricsto)\\s*(\\S*)\\s*)({)))",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "5": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "6": {
+          "name": "entity.other.lilypond"
+        },
+        "8": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "9": {
+          "name": "entity.other.lilypond"
+        },
+        "11": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "12": {
+          "name": "entity.other.lilypond"
+        },
+        "14": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "15": {
+          "name": "string.lilypond"
+        },
+        "16": {
+          "name": "entity.other.lilypond"
+        },
+        "19": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "21": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "name": "meta.lilypond.lyricsmode",
+      "patterns": [
+        {
+          "include": "#separator"
+        },
+        {
+          "include": "#melisma"
+        },
+        {
+          "include": "#elision"
+        },
+        {
+          "include": "source.lilypond-internals"
+        },
+        {
+          "include": "$self"
+        },
+        {
+          "include": "source.lilypond-markupmode"
+        },
+        {
+          "include": "source.lilypond-schememode"
+        }
+      ]
+    },
+    {
+      "begin": "({)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "name": "meta.lilypond.lyricsmode.nested",
+      "patterns": [
+        {
+          "include": "#separator"
+        },
+        {
+          "include": "#melisma"
+        },
+        {
+          "include": "#elision"
+        },
+        {
+          "include": "source.lilypond-internals"
+        },
+        {
+          "include": "$self"
+        },
+        {
+          "include": "source.lilypond-markupmode"
+        },
+        {
+          "include": "source.lilypond-schememode"
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "elision": {
+      "content": "Lyrics elision",
+      "match": "(?<=\\S)[~_](?=\\S)",
+      "name": "constant.language.elision.lilypond"
+    },
+    "melisma": {
+      "content": "Lyrics melisma",
+      "match": "(?<=\\s)(_)(?=\\s)",
+      "name": "storage.type.number.manualmelisma.lilypond"
+    },
+    "separator": {
+      "content": "Lyrics syllable separator",
+      "match": "\\s*--\\s*",
+      "name": "support.function.syllableseparator.lilypond"
+    }
+  },
+  "scopeName": "source.lilypond-lyricsmode"
+}

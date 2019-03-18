@@ -1,0 +1,58 @@
+{
+  "name": "LilyPond-figuregroup",
+  "patterns": [
+    {
+      "begin": "(<)",
+      "beginCaptures": {
+        "1": {
+          "name": "constant.numeric.fbgroupopen.lilypond"
+        }
+      },
+      "end": "(>)(\\s*(128|64|32|16|8|4|2|1|\\breve|\\longa|\\maxima)(\\s*[.]\\s*)*((\\s*\\*\\s*\\d+(\\/\\d+)?)+)?)?",
+      "endCaptures": {
+        "1": {
+          "name": "constant.numeric.fbgroupclose.lilypond"
+        },
+        "2": {
+          "name": "constant.numeric.fbgroupclose.lilypond"
+        }
+      },
+      "name": "meta.lilypond.figuregroup",
+      "patterns": [
+        {
+          "include": "source.lilypond-markupmode"
+        },
+        {
+          "include": "#group"
+        },
+        {
+          "include": "#figure"
+        },
+        {
+          "include": "#accidental"
+        }
+      ]
+    },
+    {
+      "include": "source.lilypond-schememode"
+    }
+  ],
+  "repository": {
+    "accidental": {
+      "content": "Figured bass accidental",
+      "match": "(!|\\+|-|\\+\\+|--)",
+      "name": "keyword.fbaccidental.lilypond"
+    },
+    "figure": {
+      "content": "Figured bass figure, optionally with aug or dim indicators",
+      "match": "(\\d+)(\\\\+|/|\\\\|\\!)?",
+      "name": "keyword.fbfigure.lilypond"
+    },
+    "group": {
+      "content": "Vertical brackets grouping figured bass figures",
+      "match": "(\\[)|(\\])",
+      "name": "keyword.operator.figuregroup.brackets"
+    }
+  },
+  "scopeName": "source.lilypond-figuregroup"
+}

@@ -20,3 +20,4 @@ declare module '*.icns' {
 
 declare module "react-pdf";
 declare module "codemirror";
+declare module "codemirror-atom-modes";

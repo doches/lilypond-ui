@@ -1,0 +1,103 @@
+{
+  "name": "LilyPond-markup",
+  "patterns": [
+    {
+      "begin": "([-_^](\\s*))?(((\\\\markup)(\\s+))|((\\\\markuplist)(\\s+)))",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "5": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "8": {
+          "name": "entity.name.class.keyword.lilypond"
+        }
+      },
+      "end": "(\\s+)",
+      "name": "meta.lilypond.markupmode.singleword",
+      "patterns": [
+        {
+          "include": "source.lilypond-internals"
+        },
+        {
+          "include": "source.lilypond-notemode-explicit"
+        },
+        {
+          "include": "$self"
+        },
+        {
+          "include": "source.lilypond-schememode"
+        }
+      ]
+    },
+    {
+      "begin": "([-_^](\\s*))?(((\\\\markup\\s*)({))|((\\\\markuplist\\s*)({)))",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "5": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "8": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "9": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "name": "meta.lilypond.markupmode",
+      "patterns": [
+        {
+          "include": "source.lilypond-internals"
+        },
+        {
+          "include": "source.lilypond-notemode-explicit"
+        },
+        {
+          "include": "$self"
+        },
+        {
+          "include": "source.lilypond-schememode"
+        }
+      ]
+    },
+    {
+      "begin": "({)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "name": "meta.lilypond.markupmode.nested",
+      "patterns": [
+        {
+          "include": "source.lilypond-internals"
+        },
+        {
+          "include": "source.lilypond-notemode-explicit"
+        },
+        {
+          "include": "$self"
+        },
+        {
+          "include": "source.lilypond-schememode"
+        }
+      ]
+    }
+  ],
+  "scopeName": "source.lilypond-markupmode"
+}

@@ -1,0 +1,56 @@
+{
+  "name": "LilyPond-notedrum",
+  "patterns": [
+    {
+      "content": "LilyPond chord",
+      "match": "<(?!<)|(?<!\\\\)>(?!>)(\\s*(128|64|32|16|8|4|2|1|\\\\breve|\\\\longa|\\\\maxima)(\\s*[.]\\s*)*((\\s*\\*\\s*\\d+(\\/\\d+)?)+)?)?",
+      "name": "keyword.operator.chord.lilypond"
+    },
+    {
+      "content": "LilyPond manual beam",
+      "match": "([_^-]\\s*)?\\[|\\]",
+      "name": "constant.numeric.beam.lilypond"
+    },
+    {
+      "content": "LilyPond polyphony delimiter",
+      "match": "<<|>>",
+      "name": "constant.language.polydelim.lilypond"
+    },
+    {
+      "content": "LilyPond polyphony separator",
+      "match": "\\\\\\\\",
+      "name": "constant.character.polysep.lilypond"
+    },
+    {
+      "content": "LilyPond articulation mark",
+      "match": "[-_^][-_^+|!>.]",
+      "name": "string.interpolated.articulation.lilypond"
+    },
+    {
+      "content": "LilyPond tie or slur",
+      "match": "([_^-]\\s*)?\\(|[_^-]?~|\\)",
+      "name": "support.function.tieslur.lilypond"
+    },
+    {
+      "content": "LilyPond phrasing slur",
+      "match": "([_^-]\\s*)?\\\\\\(|\\\\\\)",
+      "name": "support.constant.phraslur.lilypond"
+    },
+    {
+      "content": "LilyPond ligature",
+      "match": "([_^-]\\s*)?\\\\\\[|\\\\\\]",
+      "name": "support.constant.ligature.lilypond"
+    },
+    {
+      "content": "LilyPond bar line",
+      "match": "[|]",
+      "name": "support.type.barline.lilypond"
+    },
+    {
+      "content": "LilyPond hairpin",
+      "match": "\\\\[<!>]",
+      "name": "support.variable.hairpin.lilypond"
+    }
+  ],
+  "scopeName": "source.lilypond-notedrum"
+}

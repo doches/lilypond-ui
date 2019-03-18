@@ -1,0 +1,110 @@
+{
+  "name": "LilyPond-drummode",
+  "patterns": [
+    {
+      "begin": "([-_^](\\s*))?(((\\\\)drums)|((\\\\)drummode))\\s*({)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "4": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "6": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "7": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "name": "meta.lilypond.drummode",
+      "patterns": [
+        {
+          "include": "source.lilypond-notedrum"
+        },
+        {
+          "include": "#percussion_notes"
+        },
+        {
+          "include": "source.lilypond-internals"
+        },
+        {
+          "include": "source.lilypond-notemode-explicit"
+        },
+        {
+          "include": "$self"
+        },
+        {
+          "include": "source.lilypond-lyricsmode"
+        },
+        {
+          "include": "source.lilypond-markupmode"
+        },
+        {
+          "include": "source.lilypond-figbassmode"
+        },
+        {
+          "include": "source.lilypond-schememode"
+        }
+      ]
+    },
+    {
+      "begin": "({)",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "name": "meta.lilypond.drummode",
+      "patterns": [
+        {
+          "include": "source.lilypond-notedrum"
+        },
+        {
+          "include": "#percussion_notes"
+        },
+        {
+          "include": "source.lilypond-internals"
+        },
+        {
+          "include": "source.lilypond-lyricsmode"
+        },
+        {
+          "include": "$self"
+        },
+        {
+          "include": "source.lilypond-notemode-explicit"
+        },
+        {
+          "include": "source.lilypond-markupmode"
+        },
+        {
+          "include": "source.lilypond-figbassmode"
+        },
+        {
+          "include": "source.lilypond-schememode"
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "percussion_notes": {
+      "content": "LilyPond percussion note or abbreviation of percussion note chord",
+      "match": "\\b((((acousticbassdrum|acousticsnare|agh|agl|bassdrum|bd|bda|boh|bohm|boho|bol|bolm|bolo|cab|cabasa|cb|cgh|cghm|cgho|cgl|cglm|cglo|chinesecymbal|cl|claves|closedhihat|cowbell|crashcymbal|crashcymbala|crashcymbalb|cuim|cuio|cymc|cymca|cymcb|cymch|cymr|cymra|cymrb|cyms|da|db|dc|dd|de|electricsnare|fivedown|fiveup|fourdown|fourup|gui|guil|guiro|guis|halfopenhihat|handclap|hc|hh|hhc|hhho|hho|hhp|hiagogo|hibongo|hiconga|highfloortom|hightom|hihat|himidtom|hisidestick|hitimbale|hiwoodblock|loagogo|lobongo|loconga|longguiro|longwhistle|losidestick|lotimbale|lowfloortom|lowmidtom|lowoodblock|lowtom|mar|maracas|mutecuica|mutehibongo|mutehiconga|mutelobongo|muteloconga|mutetriangle|onedown|oneup|opencuica|openhibongo|openhiconga|openhihat|openlobongo|openloconga|opentriangle|pedalhihat|rb|ridebell|ridecymbal|ridecymbala|ridecymbalb|shortguiro|shortwhistle|sidestick|sn|sna|snare|sne|splashcymbal|ss|ssh|ssl|tamb|tambourine|tamtam|threedown|threeup|timh|timl|tomfh|tomfl|tomh|toml|tommh|tomml|tri|triangle|trim|trio|tt|twodown|twoup|ua|ub|uc|ud|ue|vibraslap|vibs|wbh|wbl|whl|whs))|s|r|R|q)(?![A-Za-z])(\\s*(128|64|32|16|8|4|2|1|\\\\breve|\\\\longa|\\\\maxima)(\\s*[.]\\s*)*((\\s*\\*\\s*\\d+(\\/\\d+)?)+)?)?)(?!(acousticbassdrum|acousticsnare|agh|agl|bassdrum|bd|bda|boh|bohm|boho|bol|bolm|bolo|cab|cabasa|cb|cgh|cghm|cgho|cgl|cglm|cglo|chinesecymbal|cl|claves|closedhihat|cowbell|crashcymbal|crashcymbala|crashcymbalb|cuim|cuio|cymc|cymca|cymcb|cymch|cymr|cymra|cymrb|cyms|da|db|dc|dd|de|electricsnare|fivedown|fiveup|fourdown|fourup|gui|guil|guiro|guis|halfopenhihat|handclap|hc|hh|hhc|hhho|hho|hhp|hiagogo|hibongo|hiconga|highfloortom|hightom|hihat|himidtom|hisidestick|hitimbale|hiwoodblock|loagogo|lobongo|loconga|longguiro|longwhistle|losidestick|lotimbale|lowfloortom|lowmidtom|lowoodblock|lowtom|mar|maracas|mutecuica|mutehibongo|mutehiconga|mutelobongo|muteloconga|mutetriangle|onedown|oneup|opencuica|openhibongo|openhiconga|openhihat|openlobongo|openloconga|opentriangle|pedalhihat|rb|ridebell|ridecymbal|ridecymbala|ridecymbalb|shortguiro|shortwhistle|sidestick|sn|sna|snare|sne|splashcymbal|ss|ssh|ssl|tamb|tambourine|tamtam|threedown|threeup|timh|timl|tomfh|tomfl|tomh|toml|tommh|tomml|tri|triangle|trim|trio|tt|twodown|twoup|ua|ub|uc|ud|ue|vibraslap|vibs|wbh|wbl|whl|whs))",
+      "name": "keyword.percussionnote.lilypond"
+    }
+  },
+  "scopeName": "source.lilypond-drummode"
+}

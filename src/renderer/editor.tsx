@@ -11,19 +11,35 @@ require("codemirror/addon/search/search.js");
 import { IMessage, ILinePosition } from "./types";
 import "./editor.less";
 
+
+
 // Codemirror lilypond mode
-CM.defineSimpleMode("lilypond", {
-  start: [
-    {regex: /(\\time) ([0-9\/]+)/, token: ["tag", "def"]},
-    {regex: /(\\tempo) (\d+\=\d+)/, token: ["tag", "def"]},
-    {regex: /(\\[^\s\\]+)/, token: "tag"},
-    {regex: /%.*$/, token: "comment"},
-    {regex: /[{}]/, token: "bracket"},
-    {regex: /(<<|>>)/, token: "bracket"},
-    {regex: /"[^"]*"/, token: "string"},
-    {regex: /##[tf]/, token: "header"}
-  ]
-});
+require("codemirror-atom-modes").registerGrammars([
+  require("../grammar/lilypond-drummode.json"),
+  require("../grammar/lilypond-figbass.json"),
+  require("../grammar/lilypond-figuregroup.json"),
+  require("../grammar/lilypond-internals.json"),
+  require("../grammar/lilypond-lyrics.json"),
+  require("../grammar/lilypond-markup.json"),
+  require("../grammar/lilypond-notedrum.json"),
+  require("../grammar/lilypond-notemode-explicit.json"),
+  require("../grammar/lilypond-notemode.json"),
+  require("../grammar/lilypond-notenames.json"),
+  require("../grammar/lilypond-scheme.json"),
+  require("../grammar/lilypond.json")
+], CM);
+// CM.defineSimpleMode("lilypond", {
+//   start: [
+//     {regex: /(\\time) ([0-9\/]+)/, token: ["tag", "def"]},
+//     {regex: /(\\tempo) (\d+\=\d+)/, token: ["tag", "def"]},
+//     {regex: /(\\[^\s\\]+)/, token: "tag"},
+//     {regex: /%.*$/, token: "comment"},
+//     {regex: /[{}]/, token: "bracket"},
+//     {regex: /(<<|>>)/, token: "bracket"},
+//     {regex: /"[^"]*"/, token: "string"},
+//     {regex: /##[tf]/, token: "header"}
+//   ]
+// });
 
 export interface IProps {
   code: string;
@@ -84,7 +100,7 @@ export default class Editor extends React.Component<IProps, IEditorState> {
         <CodeMirror.Controlled
           className="editor"
           options={{
-            mode: "lilypond",
+            mode: "LilyPond",
             theme: "nord",
             lineWrapping: true,
             scrollbarStyle: null,

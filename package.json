@@ -31,6 +31,7 @@
   "dependencies": {
     "@blueprintjs/core": "^3.14.1",
     "codemirror": "^5.44.0",
+    "codemirror-atom-modes": "^1.1.1",
     "electron-settings": "^3.2.0",
     "lodash": "^4.17.11",
     "mousetrap": "^1.6.3",

@@ -1,0 +1,37 @@
+{
+  "fileTypes": [
+    "ily",
+    "ly"
+  ],
+  "name": "LilyPond",
+  "patterns": [
+    {
+      "include": "source.lilypond-notenames"
+    },
+    {
+      "include": "source.lilypond-internals"
+    },
+    {
+      "include": "source.lilypond-notemode"
+    },
+    {
+      "include": "source.lilypond-drummode"
+    },
+    {
+      "include": "source.lilypond-lyricsmode"
+    },
+    {
+      "include": "source.lilypond-notemode-explicit"
+    },
+    {
+      "include": "source.lilypond-markupmode"
+    },
+    {
+      "include": "source.lilypond-figbassmode"
+    },
+    {
+      "include": "source.lilypond-schememode"
+    }
+  ],
+  "scopeName": "source.lilypond"
+}

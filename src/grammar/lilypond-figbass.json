@@ -1,0 +1,56 @@
+{
+  "name": "LilyPond-figbass",
+  "patterns": [
+    {
+      "begin": "({)|([-_^](\\s*))?(((\\\\figures\\s*)({))|((\\\\figuremode\\s*)({)))",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        },
+        "2": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "6": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "7": {
+          "name": "entity.other.lilypond"
+        },
+        "9": {
+          "name": "entity.name.class.keyword.lilypond"
+        },
+        "10": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "end": "(})",
+      "endCaptures": {
+        "1": {
+          "name": "entity.other.lilypond"
+        }
+      },
+      "name": "meta.lilypond.figbassmode",
+      "patterns": [
+        {
+          "include": "$self"
+        },
+        {
+          "include": "source.lilypond-internals"
+        },
+        {
+          "include": "source.lilypond-notemode-explicit"
+        },
+        {
+          "include": "source.lilypond-markupmode"
+        },
+        {
+          "include": "source.lilypond-figuregroup"
+        },
+        {
+          "include": "source.lilypond-schememode"
+        }
+      ]
+    }
+  ],
+  "scopeName": "source.lilypond-figbassmode"
+}

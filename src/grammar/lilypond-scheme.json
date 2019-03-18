@@ -1,0 +1,60 @@
+{
+  "name": "LilyPond-scheme",
+  "patterns": [
+    {
+      "begin": "\\$(`|')?\\(",
+      "end": "\\)",
+      "name": "meta.lilypond.schememode",
+      "patterns": [
+        {
+          "include": "#scheme"
+        },
+        {
+          "include": "source.lisp"
+        }
+      ]
+    },
+    {
+      "begin": "#(`|')?\\(",
+      "end": "\\)",
+      "name": "meta.lilypond.schememode",
+      "patterns": [
+        {
+          "include": "#scheme"
+        },
+        {
+          "include": "source.lisp"
+        }
+      ]
+    },
+    {
+      "begin": "#",
+      "end": "\\s",
+      "name": "meta.lilypond.schememode",
+      "patterns": [
+        {
+          "include": "#scheme"
+        },
+        {
+          "include": "source.lisp"
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "scheme": {
+      "begin": "\\(",
+      "end": "\\)",
+      "name": "meta.scheme.scheme.lilypond",
+      "patterns": [
+        {
+          "include": "#scheme"
+        },
+        {
+          "include": "source.lisp"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.lilypond-schememode"
+}
