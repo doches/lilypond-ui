@@ -46,7 +46,9 @@ let mainConfig = {
 
 let rendererConfig = {
     mode: 'production',
-    entry: './src/renderer/renderer.tsx',
+    entry: {
+      'main': './src/renderer/renderer.tsx',
+    },
     target: 'electron-renderer',
     output: {
         filename: 'renderer.bundle.js',
@@ -100,4 +102,16 @@ let rendererConfig = {
     ],
 };
 
-module.exports = [mainConfig, rendererConfig];
+let pdfWorkerConfig = {
+  context: __dirname,
+  entry: {
+    'pdf.worker': 'pdfjs-dist/build/pdf.worker.entry',
+  },
+  mode: 'none',
+  output: {
+      filename: 'pdf.worker.js',
+      path: __dirname + '/dist',
+  },
+};
+
+module.exports = [mainConfig, rendererConfig, pdfWorkerConfig];

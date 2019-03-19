@@ -8,6 +8,8 @@ import {
 } from "@blueprintjs/core";
 import Toast from "./toast";
 
+ReactPDF.pdfjs.GlobalWorkerOptions.workerSrc = "../dist/pdf.worker.js";
+
 import "./output.less";
 
 const translateScale = (scale: string) => {
