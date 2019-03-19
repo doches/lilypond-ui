@@ -1,3 +1,8 @@
 dist/
 node_modules/
 *.log
+artifacts/
+artwork/
+*-x64/
+*.sketch
+.DS_Store

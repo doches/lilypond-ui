@@ -6,6 +6,33 @@
     box-shadow: 1px 1px 5px fadeout(@dark-gray1, 50%);
   }
 
+  .app-output-spinner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .bp3-spinner {
+      flex: 0;
+    }
+  }
+
+  .output-errors {
+    position: absolute;
+    top: @pt-grid-size * 2;
+    left: @pt-grid-size * 2;
+    right: @pt-grid-size * 2;
+    bottom: @pt-grid-size * 2;
+    background-color: fadeout(@dark-gray1, 10%);
+    border-radius: @pt-border-radius;
+    cursor: pointer;
+  }
+
   .output-pdf {
     overflow: auto;
     position: absolute;

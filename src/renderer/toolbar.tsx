@@ -2,7 +2,13 @@ import * as React from "react";
 import {
   Button,
   Intent,
+  Menu,
+  MenuItem,
+  Popover,
+  Position,
+  PopoverInteractionKind,
 } from "@blueprintjs/core";
+import { map } from "lodash";
 
 import "./toolbar.less";
 
@@ -15,6 +21,9 @@ export interface IToolbarProps {
   onRender: () => void;
   path: string;
   needsSaving: boolean;
+  scale: string;
+  scaleOptions: string[];
+  onChangeScale: (scale: string) => void;
 }
 
 export default class Toolbar extends React.Component<IToolbarProps, {}> {
@@ -59,6 +68,28 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
             intent={Intent.NONE}
           />
         )}
+        <Popover
+          content={(
+            <Menu>
+              {map(this.props.scaleOptions, (opt: string) => (
+                <MenuItem
+                  text={opt}
+                  active={opt === this.props.scale}
+                  onClick={() => this.props.onChangeScale(opt)}
+                />
+              ))}
+            </Menu>
+          )}
+          position={Position.BOTTOM_LEFT}
+          interactionKind={PopoverInteractionKind.CLICK}
+        >
+          <Button
+            icon="zoom-to-fit"
+            text={this.props.scale}
+            minimal={false}
+            intent={Intent.NONE}
+          />
+        </Popover>
       </div>
     );
   }

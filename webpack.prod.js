@@ -70,7 +70,7 @@ let rendererConfig = {
                 },
             },
             {
-                test: /\.(scss|css)$/,
+                test: /\.(less|scss|css)$/,
                 use: [
                     'style-loader',
                     'css-loader?sourceMap',

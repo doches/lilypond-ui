@@ -33,6 +33,8 @@ export interface IAppState {
   rawOutput: string;
   infoPanelSize: string;
   scrollToPosition?: ILinePosition;
+  pdfIsPending: boolean;
+  scale: string;
 }
 
 export default class App extends React.Component<IAppProps, IAppState> {
@@ -48,6 +50,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
       messages: [],
       rawOutput: "",
       infoPanelSize: "99%",
+      pdfIsPending: false,
+      scale: "100%",
     };
   }
 
@@ -83,7 +87,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
   }
 
   public render() {
-    const splitPaneSize = Settings.get(USER_SETTINGS.SPLIT_PANE_SIZE, "50%").toString();
     return (
       <div className="app-container">
         <Toolbar
@@ -95,6 +98,17 @@ export default class App extends React.Component<IAppProps, IAppState> {
           }}
           onNew={() => { this.newFile(); }}
           onRender={() => { this.compile(this.state.path); }}
+          scale={this.state.scale}
+          onChangeScale={(scale: string) => {
+            this.setState({ scale });
+          }}
+          scaleOptions={[
+            "100%",
+            "125%",
+            "150%",
+            "200%",
+            "Auto"
+          ]}
         />
         <div className="app-content">
           <SplitPane
@@ -106,9 +120,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
               defaultSize={"50%"}
               minSize={400}
               maxSize={1200}
-              onChange={(size: number) => {
-                Settings.set(USER_SETTINGS.SPLIT_PANE_SIZE, size);
-              }}
             >
               <Editor
                 code={this.state.code}
@@ -132,6 +143,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
                     outputNeedsRefresh: false,
                   })
                 }}
+                showPendingSpinner={this.state.pdfIsPending}
+                onLoadSuccess={() => {
+                  this.setState({ pdfIsPending: false});
+                }}
+                scale={this.state.scale}
+                hasErrors={this.state.messages && filter(this.state.messages, (message: IMessage) => message.type.toLowerCase() == "error").length > 0}
               />
             </SplitPane>
             <SplitPane
@@ -168,6 +185,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this.setState({
           code: data,
           path,
+          pdfIsPending: true,
         });
 
         this.compile(path);
@@ -176,16 +194,27 @@ export default class App extends React.Component<IAppProps, IAppState> {
           message: "Could not read file",
           intent: Intent.DANGER,
         });
+
+        this.setState({
+          pdfIsPending: false,
+        });
       }
     });
   }
 
   public saveSourceFile = (path: string, skipRender: boolean = false) => {
+    this.setState({
+      pdfIsPending: true,
+    });
+
     fs.writeFile(path, this.state.code, (error: any) => {
       if (error) {
         Toast.show({
           message: "Could not save file",
           intent: Intent.DANGER,
+        });
+        this.setState({
+          pdfIsPending: false,
         });
       } else {
         this.setState({
@@ -209,6 +238,9 @@ export default class App extends React.Component<IAppProps, IAppState> {
   }
 
   public compile = (path: string) => {
+    this.setState({
+      pdfIsPending: true,
+    });
     const lilypond = `/Applications/LilyPond.app/Contents/Resources/bin/lilypond`;
     const cmd = `${lilypond} --output "${path.replace(/\.[^\.]+$/, "")}" "${path}"`;
     exec(cmd, (error, stdout, stderr) => {
@@ -228,7 +260,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
 
       this.setState({
         messages,
-        rawOutput: stdout + "\n" + stderr,
+        rawOutput: stderr,
+        pdfIsPending: false,
       });
 
       if (!error) {
@@ -241,7 +274,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         });
       } else {
         Toast.show({
-          message: "Could not render PDF",
+          message: `${messages.length} LilyPond alert${messages.length === 1 ? "" : "s"}`,
           intent: Intent.WARNING,
           timeout: 2000,
         });

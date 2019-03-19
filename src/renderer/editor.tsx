@@ -10,8 +10,7 @@ require("codemirror/addon/search/searchcursor.js");
 require("codemirror/addon/search/search.js");
 import { IMessage, ILinePosition } from "./types";
 import "./editor.less";
-
-
+import { ipcRenderer } from "electron";
 
 // Codemirror lilypond mode
 require("codemirror-atom-modes").registerGrammars([
@@ -65,6 +64,18 @@ export default class Editor extends React.Component<IProps, IEditorState> {
     };
 
     this.lineWidgets = [];
+  }
+
+  componentDidMount() {
+    ipcRenderer.on("cut", () => {
+      console.warn("on cut");
+    });
+    ipcRenderer.on("copy", () => {
+      console.warn("on copy");
+    });
+    ipcRenderer.on("paste", () => {
+      console.warn("on paste");
+    });
   }
 
   public componentWillReceiveProps(props: IProps) {

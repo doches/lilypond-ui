@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { Colors } from "@blueprintjs/core";
@@ -25,6 +25,31 @@ function createWindow() {
             slashes: true,
         })
     );
+
+    // And create the menu
+    const template = [{
+        label: app.getName(),
+        submenu: [
+            { role: "quit", accelerator: "Command+Q", click: () => { app.quit(); }},
+            { role: "toggleDevTools", accelerator: "CmdOrCtrl+Alt+I" },
+            { role: "forceReload", accelerator: "CmdOrCtrl+Shift+R"},
+        ]}, {
+        label: "Edit",
+        submenu: [
+            // { role: "undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+            // { role: "redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+            { role: "cut", accelerator: "CmdOrCtrl+X", selector: "cut:", click: () => { mainWindow.webContents.send("cut"); } },
+            { role: "copy", accelerator: "CmdOrCtrl+C", selector: "copy:", click: () => { mainWindow.webContents.send("copy"); } },
+            { role: "paste", accelerator: "CmdOrCtrl+V", selector: "paste:", click: () => { mainWindow.webContents.send("paste"); } },
+            // { role: "select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
+        ]}, {
+        label: "View",
+        submenu: [
+            { role: "togglefullscreen", accelerator: "Command+Control+F"},
+        ]}
+    ];
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
