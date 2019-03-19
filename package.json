@@ -10,12 +10,12 @@
   "scripts": {
     "start": "electron ./dist/main.bundle.js",
     "dev": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
-    "prod": "rimraf dist && webpack --config ./webpack.prod.js --progress --colors",
     "build": "npm-run-all make-app dmg",
-    "package": "electron-packager . --overwrite",
-    "package-icon": "cp ./artwork/icons.icns ./LilyPond-darwin-x64/LilyPond.app/Contents/Resources/electron.icns",
     "make-app": "npm-run-all prod package package-icon",
-    "dmg": "electron-installer-dmg --overwrite --icon=artwork/icons.icns --title='LilyPond Editor' --out=./artifacts ./LilyPond-darwin-x64/LilyPond.app LilyPond"
+    "prod": "rimraf dist && rimraf artifacts && webpack --config ./webpack.prod.js --progress --colors",
+    "package": "electron-packager . --overwrite",
+    "package-icon": "cp ./artwork/icons.icns './LilyPond Editor-darwin-x64/LilyPond Editor.app/Contents/Resources/electron.icns'",
+    "dmg": "electron-installer-dmg --overwrite --icon=artwork/icons.icns --title='LilyPond Editor' --out=./artifacts './LilyPond Editor-darwin-x64/LilyPond Editor.app' 'LilyPond Editor'"
   },
   "devDependencies": {
     "@types/electron-settings": "^3.1.1",
@@ -54,5 +54,5 @@
     "react-pdf": "^4.0.5",
     "react-split-pane": "^0.1.85"
   },
-  "productName": "LilyPond"
+  "productName": "LilyPond Editor"
 }
