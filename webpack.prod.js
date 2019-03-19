@@ -104,10 +104,10 @@ let rendererConfig = {
 
 let pdfWorkerConfig = {
   context: __dirname,
+  mode: 'production',
   entry: {
     'pdf.worker': 'pdfjs-dist/build/pdf.worker.entry',
   },
-  mode: 'none',
   output: {
       filename: 'pdf.worker.js',
       path: __dirname + '/dist',
