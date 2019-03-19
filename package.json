@@ -1,8 +1,12 @@
 {
-  "name": "compline",
+  "name": "lilypond-ui",
   "version": "1.0.0",
   "license": "MIT",
   "main": "./dist/main.bundle.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/doches/lilypond-ui.git"
+  },
   "scripts": {
     "start": "electron ./dist/main.bundle.js",
     "dev": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
