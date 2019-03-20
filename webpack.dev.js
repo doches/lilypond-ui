@@ -21,7 +21,7 @@ let mainConfig = {
             {
                 // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
                 test: /\.(ts)$/,
-                exclude: /node_modules/,
+                exclude: /(node_modules|LilyPond Editor-darwin-x64)/,
                 use: {
                     loader: 'ts-loader',
                 },
@@ -64,7 +64,7 @@ let rendererConfig = {
             {
                 // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
                 test: /\.(ts|tsx)$/,
-                exclude: /node_modules/,
+                exclude: /(node_modules|LilyPond Editor-darwin-x64)/,
                 use: {
                     loader: 'ts-loader',
                 },
