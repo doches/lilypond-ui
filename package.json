@@ -18,6 +18,7 @@
     "dmg": "electron-installer-dmg --overwrite --icon=artwork/icons.icns --title='LilyPond Editor' --out=./artifacts './LilyPond Editor-darwin-x64/LilyPond Editor.app' 'LilyPond Editor'"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.7",
     "@types/electron-settings": "^3.1.1",
     "@types/lodash": "^4.14.123",
     "@types/mousetrap": "^1.6.1",
@@ -42,6 +43,7 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^3.14.1",
+    "classnames": "^2.2.6",
     "codemirror": "^5.44.0",
     "codemirror-atom-modes": "^1.1.1",
     "electron-settings": "^3.2.0",

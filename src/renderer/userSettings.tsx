@@ -1,6 +1,10 @@
 export const USER_SETTINGS = {
   ACTIVE_FILE: "fileOpen",
-  SPLIT_PANE_SIZE: "splitPaneSize",
+  LILYPOND_PATH: "lilypondExecutablePath",
+  AUTORENDER_FLAG: "doAutoRender"
 }
 
-export default USER_SETTINGS;
+export const USER_DEFAULTS = {
+  LILYPOND_PATH: "/Applications/LilyPond.app/Contents/Resources/bin/lilypond",
+  AUTORENDER_FLAG: true,
+}

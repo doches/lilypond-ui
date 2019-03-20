@@ -30,10 +30,21 @@ function createWindow() {
     const template = [{
         label: app.getName(),
         submenu: [
-            { role: "quit", accelerator: "Command+Q", click: () => { app.quit(); }},
+            { label: "Preferences...", accelerator: "CmdOrCtrl+,", click: () => mainWindow.webContents.send("showPreferences")},
             { role: "toggleDevTools", accelerator: "CmdOrCtrl+Alt+I" },
             { role: "forceReload", accelerator: "CmdOrCtrl+Shift+R"},
+            { type: "separator"},
+            { role: "quit", accelerator: "Command+Q", click: () => { app.quit(); }},
         ]}, {
+        label: "File",
+        submenu: [
+            { label: "New File", accelerator: "CmdOrCtrl+N", click: () => { mainWindow.webContents.send("new"); }},
+            { label: "Open...", accelerator: "CmdOrCtrl+O", click: () => { mainWindow.webContents.send("open"); }},
+            { type: "separator"},
+            { label: "Save", accelerator: "CmdOrCtrl+S", click: () => { mainWindow.webContents.send("save"); }},
+            { type: "separator"},
+            { label: "Render PDF", accelerator: "CmdOrCtrl+R", click: () => { mainWindow.webContents.send("render"); }},
+        ]},{
         label: "Edit",
         submenu: [
             // { role: "undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
