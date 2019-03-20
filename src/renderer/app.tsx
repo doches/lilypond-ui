@@ -11,10 +11,12 @@ import {
 } from "@blueprintjs/core";
 import * as Settings from "electron-settings";
 import * as Mousetrap from "mousetrap";
+import { ipcRenderer } from "electron";
 const { dialog } = require("electron").remote;
 import { filter, map } from "lodash";
-import USER_SETTINGS from "./userSettings";
+import { USER_SETTINGS, USER_DEFAULTS } from "./userSettings";
 import { IMessage, ILinePosition } from "./types";
+import PreferencesDialog from "./preferencesDialog";
 
 import './app.less';
 
@@ -35,6 +37,8 @@ export interface IAppState {
   scrollToPosition?: ILinePosition;
   pdfIsPending: boolean;
   scale: string;
+  preferencesVisible: boolean;
+  autorenderEnabled: boolean;
 }
 
 export default class App extends React.Component<IAppProps, IAppState> {
@@ -52,6 +56,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
       infoPanelSize: "99%",
       pdfIsPending: false,
       scale: "100%",
+      preferencesVisible: false,
+      autorenderEnabled: !!Settings.get(USER_SETTINGS.AUTORENDER_FLAG, USER_DEFAULTS.AUTORENDER_FLAG).valueOf(),
     };
   }
 
@@ -73,6 +79,17 @@ export default class App extends React.Component<IAppProps, IAppState> {
     Mousetrap.bind(["command+n", "ctrl+n"], () => {
       this.newFile();
     });
+
+    // Handle menu actions
+    ipcRenderer.on("new", this.newFile);
+    ipcRenderer.on("open", this.openFileDialog);
+    ipcRenderer.on("save", () => {
+      this.saveSourceFile(this.state.path);
+    });
+    ipcRenderer.on("render", () => {
+      this.compile(this.state.path);
+    });
+    ipcRenderer.on("showPreferences", this.showPreferences);
   }
 
   componentWillReceiveProps(_: IAppProps, state: IAppState) {
@@ -89,9 +106,17 @@ export default class App extends React.Component<IAppProps, IAppState> {
   public render() {
     return (
       <div className="app-container">
+        <PreferencesDialog
+          isOpen={this.state.preferencesVisible}
+          onClose={() => {
+            this.setState({
+              preferencesVisible: false,
+            });
+          }}
+        />
         <Toolbar
           path={this.state.path}
-          onLoadFile={this.loadSourceFile}
+          onOpen={this.openFileDialog}
           needsSaving={this.state.codeHasChanged}
           onSave={() => {
             this.saveSourceFile(this.state.path);
@@ -109,6 +134,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
             "200%",
             "Auto"
           ]}
+          showButtonLabels={!!Settings.get(USER_SETTINGS.TOOLBAR_ICONS_FLAG, USER_DEFAULTS.TOOLBAR_ICONS_FLAG).valueOf()}
         />
         <div className="app-content">
           <SplitPane
@@ -231,8 +257,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
           timeout: 1000,
         });
 
-        // After a manual save, also compile
-        this.compile(path);
+        // After a manual save, also compile unless disabled
+        if (this.state.autorenderEnabled) {
+          this.compile(path);
+        }
       }
     });
   }
@@ -241,7 +269,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
     this.setState({
       pdfIsPending: true,
     });
-    const lilypond = `/Applications/LilyPond.app/Contents/Resources/bin/lilypond`;
+    const lilypond = Settings.get(USER_SETTINGS.LILYPOND_PATH, USER_DEFAULTS.LILYPOND_PATH).toString();
     const cmd = `${lilypond} --output "${path.replace(/\.[^\.]+$/, "")}" "${path}"`;
     exec(cmd, (error, stdout, stderr) => {
       const lines = stderr.split(/\n/);
@@ -286,6 +314,19 @@ export default class App extends React.Component<IAppProps, IAppState> {
     });
   }
 
+  public openFileDialog = () => {
+    const files = dialog.showOpenDialog({
+      properties: ['openFile'],
+      title: "Open a LilyPond source file",
+      filters: [
+        {name: "LilyPond Source", extensions: ["ly", "lilypond"]}
+      ]
+    });
+    if (files && files.length === 1) {
+      this.loadSourceFile(files[0]);
+    }
+  }
+
   public newFile = () => {
     const outFile = dialog.showSaveDialog({
       title: "Save a new LilyPond source file",
@@ -302,5 +343,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this.saveSourceFile(outFile, true);
       }, 200);
     }
+  }
+
+  public showPreferences = () => {
+    console.warn("show prefs");
+    this.setState({
+      preferencesVisible: !this.state.preferencesVisible,
+    });
   }
 }
