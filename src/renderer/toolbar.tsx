@@ -22,6 +22,8 @@ export interface IToolbarProps {
   scale: string;
   scaleOptions: string[];
   onChangeScale: (scale: string) => void;
+
+  showButtonLabels: boolean;
 }
 
 export default class Toolbar extends React.Component<IToolbarProps, {}> {
@@ -33,28 +35,28 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
             icon="document"
             intent={Intent.NONE}
             minimal={true}
-            text="New"
+            text={this.props.showButtonLabels ? "New" : ""}
             onClick={this.props.onNew}
           />
           <Button
             icon="document-open"
             intent={Intent.NONE}
             minimal={true}
-            text="Open"
+            text={this.props.showButtonLabels ? "Open" : ""}
             onClick={this.props.onOpen}
           />
           <Button
             icon="floppy-disk"
             intent={this.props.needsSaving ? Intent.DANGER : Intent.NONE}
             minimal={true}
-            text="Save"
+            text={this.props.showButtonLabels ? "Save" : ""}
             onClick={this.props.onSave}
           />
           <Button
             icon="draw"
             intent={this.props.needsSaving ? Intent.WARNING : Intent.NONE}
             minimal={true}
-            text="Render"
+            text={this.props.showButtonLabels ? "Render" : ""}
             onClick={this.props.onRender}
           />
         </div>
