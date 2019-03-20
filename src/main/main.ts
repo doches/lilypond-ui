@@ -60,7 +60,7 @@ function createWindow() {
         ]}
     ];
 
-    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template as any));
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
