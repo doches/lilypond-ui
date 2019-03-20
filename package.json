@@ -8,11 +8,12 @@
     "url": "git://github.com/doches/lilypond-ui.git"
   },
   "scripts": {
+    "clean": "rimraf dist && rimraf artifacts && rimraf 'LilyPond Editor-darwin-x64'",
     "start": "electron ./dist/main.bundle.js",
     "dev": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
-    "build": "npm-run-all make-app dmg",
+    "build": "npm-run-all clean make-app dmg",
     "make-app": "npm-run-all prod package package-icon",
-    "prod": "rimraf dist && rimraf artifacts && webpack --config ./webpack.prod.js --progress --colors",
+    "prod": "webpack --config ./webpack.prod.js --progress --colors",
     "package": "electron-packager . --overwrite",
     "package-icon": "cp ./artwork/icons.icns './LilyPond Editor-darwin-x64/LilyPond Editor.app/Contents/Resources/electron.icns'",
     "dmg": "electron-installer-dmg --overwrite --icon=artwork/icons.icns --title='LilyPond Editor' --out=./artifacts './LilyPond Editor-darwin-x64/LilyPond Editor.app' 'LilyPond Editor'"
