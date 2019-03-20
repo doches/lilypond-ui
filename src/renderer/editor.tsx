@@ -46,6 +46,7 @@ export interface IProps {
   onSave: () => void;
   messages: IMessage[];
   scrollPosition?: ILinePosition;
+  editorFontSize: number;
 }
 
 export interface IEditorState {
@@ -107,7 +108,12 @@ export default class Editor extends React.Component<IProps, IEditorState> {
 
   public render() {
     return (
-      <div className="editor-wrapper">
+      <div
+        className="editor-wrapper"
+        style={{
+          fontSize: `${this.props.editorFontSize}px`,
+        }}
+      >
         <CodeMirror.Controlled
           className="editor"
           options={{
