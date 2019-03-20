@@ -28,67 +28,69 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
   public render() {
     return (
       <div className="app-toolbar">
-        <Button
-          icon="document"
-          intent={Intent.NONE}
-          minimal={true}
-          text="New"
-          onClick={this.props.onNew}
-        />
-        <Button
-          icon="document-open"
-          intent={Intent.NONE}
-          minimal={true}
-          text="Open"
-          onClick={this.props.onOpen}
-        />
-        <Button
-          icon="floppy-disk"
-          intent={this.props.needsSaving ? Intent.DANGER : Intent.NONE}
-          minimal={true}
-          text="Save"
-          onClick={this.props.onSave}
-        />
-        <Button
-          icon="draw"
-          intent={this.props.needsSaving ? Intent.WARNING : Intent.NONE}
-          minimal={true}
-          text="Render"
-          onClick={this.props.onRender}
-        />
-        <span
-          style={{flex: 1}}
-        />
-        {this.props.path && this.props.path.length > 0 && (
+        <div className="toolbar-left">
           <Button
-            text={this.props.path}
+            icon="document"
+            intent={Intent.NONE}
             minimal={true}
-            intent={Intent.NONE}
+            text="New"
+            onClick={this.props.onNew}
           />
-        )}
-        <Popover
-          content={(
-            <Menu>
-              {map(this.props.scaleOptions, (opt: string) => (
-                <MenuItem
-                  key={opt}
-                  text={opt}
-                  active={opt === this.props.scale}
-                  onClick={() => this.props.onChangeScale(opt)}
-                />
-              ))}
-            </Menu>
-          )}
-          position={Position.BOTTOM_LEFT}
-          interactionKind={PopoverInteractionKind.CLICK}
-        >
           <Button
-            icon="zoom-to-fit"
-            text={this.props.scale}
-            minimal={false}
+            icon="document-open"
             intent={Intent.NONE}
+            minimal={true}
+            text="Open"
+            onClick={this.props.onOpen}
           />
-        </Popover>
+          <Button
+            icon="floppy-disk"
+            intent={this.props.needsSaving ? Intent.DANGER : Intent.NONE}
+            minimal={true}
+            text="Save"
+            onClick={this.props.onSave}
+          />
+          <Button
+            icon="draw"
+            intent={this.props.needsSaving ? Intent.WARNING : Intent.NONE}
+            minimal={true}
+            text="Render"
+            onClick={this.props.onRender}
+          />
+        </div>
+        <div className="toolbar-center">
+          {this.props.path && this.props.path.length > 0 && (
+            <Button
+              text={this.props.path}
+              minimal={true}
+              intent={Intent.NONE}
+            />
+          )}
+        </div>
+        <div className="toolbar-right">
+          <Popover
+            content={(
+              <Menu>
+                {map(this.props.scaleOptions, (opt: string) => (
+                  <MenuItem
+                    text={opt}
+                    active={opt === this.props.scale}
+                    onClick={() => this.props.onChangeScale(opt)}
+                  />
+                ))}
+              </Menu>
+            )}
+            position={Position.BOTTOM_LEFT}
+            interactionKind={PopoverInteractionKind.CLICK}
+          >
+            <Button
+              icon="zoom-to-fit"
+              text={this.props.scale}
+              minimal={false}
+              intent={Intent.NONE}
+            />
+          </Popover>
+        </div>
       </div>
     );
   }
