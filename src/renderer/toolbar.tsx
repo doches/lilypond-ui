@@ -12,10 +12,8 @@ import { map } from "lodash";
 
 import "./toolbar.less";
 
-const { dialog } = require("electron").remote;
-
 export interface IToolbarProps {
-  onLoadFile: (path: string) => void;
+  onOpen: () => void;
   onSave: () => void;
   onNew: () => void;
   onRender: () => void;
@@ -42,7 +40,7 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
           intent={Intent.NONE}
           minimal={true}
           text="Open"
-          onClick={this.openFileDialog}
+          onClick={this.props.onOpen}
         />
         <Button
           icon="floppy-disk"
@@ -73,6 +71,7 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
             <Menu>
               {map(this.props.scaleOptions, (opt: string) => (
                 <MenuItem
+                  key={opt}
                   text={opt}
                   active={opt === this.props.scale}
                   onClick={() => this.props.onChangeScale(opt)}
@@ -92,18 +91,5 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
         </Popover>
       </div>
     );
-  }
-
-  public openFileDialog = () => {
-    const files = dialog.showOpenDialog({
-      properties: ['openFile'],
-      title: "Open a LilyPond source file",
-      filters: [
-        {name: "LilyPond Source", extensions: ["ly", "lilypond"]}
-      ]
-    });
-    if (files && files.length === 1) {
-      this.props.onLoadFile(files[0]);
-    }
   }
 }
