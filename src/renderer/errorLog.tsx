@@ -15,7 +15,7 @@ export default class ErrorLog extends React.Component<IErrorLogProps, {}> {
       <div className="error-log">
         {map(this.props.messages, (message: IMessage) => {
           return (
-            <div 
+            <div
               key={message.line}
               className={`error-log-message error-log-message-${message.type}`}
               onClick={() => {
