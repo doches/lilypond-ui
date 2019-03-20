@@ -8,11 +8,6 @@ import * as fs from "fs";
 import Toast from "./toast";
 import {
   Intent,
-  Dialog,
-  Classes,
-  FormGroup,
-  InputGroup,
-  Switch
 } from "@blueprintjs/core";
 import * as Settings from "electron-settings";
 import * as Mousetrap from "mousetrap";
@@ -21,7 +16,7 @@ const { dialog } = require("electron").remote;
 import { filter, map } from "lodash";
 import { USER_SETTINGS, USER_DEFAULTS } from "./userSettings";
 import { IMessage, ILinePosition } from "./types";
-import cx from "classnames";
+import PreferencesDialog from "./preferencesDialog";
 
 import './app.less';
 
@@ -111,54 +106,14 @@ export default class App extends React.Component<IAppProps, IAppState> {
   public render() {
     return (
       <div className="app-container">
-        <Dialog
+        <PreferencesDialog
           isOpen={this.state.preferencesVisible}
-          title="Preferences"
-          icon="cog"
           onClose={() => {
             this.setState({
               preferencesVisible: false,
             });
           }}
-        >
-          <div className={Classes.DIALOG_BODY}>
-            <FormGroup
-              helperText="The full path to your LilyPond executable"
-              label="LilyPond path"
-              labelFor="lilypond-path"
-              labelInfo="(required)"
-            >
-              <InputGroup
-                id="lilypond-path"
-                placeholder={USER_DEFAULTS.LILYPOND_PATH}
-                defaultValue={Settings.get(USER_SETTINGS.LILYPOND_PATH, USER_DEFAULTS.LILYPOND_PATH).toString()}
-                onChange={(event: any) => {
-                  Settings.set(USER_SETTINGS.LILYPOND_PATH, event.target.value);
-                }}
-                className={Classes.FILL}
-              />
-            </FormGroup>
-            <FormGroup
-              helperText="Enable to automatically render a fresh PDF after saving"
-              label="Render on Save"
-              labelFor="autorender-flag"
-            >
-              <Switch
-                id="autorender-flag"
-                checked={this.state.autorenderEnabled}
-                onChange={() => {
-                  const newState = !this.state.autorenderEnabled;
-                  Settings.set(USER_SETTINGS.AUTORENDER_FLAG, newState);
-                  this.setState({
-                    autorenderEnabled: newState,
-                  });
-                }}
-                className={cx([Classes.LARGE, Classes.FILL])}
-                label={this.state.autorenderEnabled ? "Enabled" : "Disabled"}
-              />
-            </FormGroup>
-          </div>
-        </Dialog>
+        />
         <Toolbar
           path={this.state.path}
           onOpen={this.openFileDialog}
@@ -179,6 +134,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
             "200%",
             "Auto"
           ]}
+          showButtonLabels={!!Settings.get(USER_SETTINGS.TOOLBAR_ICONS_FLAG, USER_DEFAULTS.TOOLBAR_ICONS_FLAG).valueOf()}
         />
         <div className="app-content">
           <SplitPane
@@ -392,7 +348,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
   public showPreferences = () => {
     console.warn("show prefs");
     this.setState({
-      preferencesVisible: true,
+      preferencesVisible: !this.state.preferencesVisible,
     });
   }
 }
