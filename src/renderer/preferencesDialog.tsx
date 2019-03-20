@@ -4,6 +4,7 @@ import {
   Classes,
   FormGroup,
   InputGroup,
+  NumericInput,
   Switch
 } from "@blueprintjs/core";
 import { USER_DEFAULTS, USER_SETTINGS } from "./userSettings";
@@ -18,6 +19,7 @@ export interface IPreferencesDialogProps {
 export interface IPreferencesDialogState {
   autorenderEnabled: boolean;
   toolbarIconsEnabled: boolean;
+  editorFontSize: number;
 }
 
 export default class PreferencesDialog extends React.Component<IPreferencesDialogProps, IPreferencesDialogState> {
@@ -28,8 +30,10 @@ export default class PreferencesDialog extends React.Component<IPreferencesDialo
     this.state = {
       autorenderEnabled: !!Settings.get(USER_SETTINGS.AUTORENDER_FLAG, USER_DEFAULTS.AUTORENDER_FLAG).valueOf(),
       toolbarIconsEnabled: !!Settings.get(USER_SETTINGS.TOOLBAR_ICONS_FLAG, USER_DEFAULTS.TOOLBAR_ICONS_FLAG).valueOf(),
-    }
+      editorFontSize: +Settings.get(USER_SETTINGS.EDITOR_FONT_SIZE, USER_DEFAULTS.EDITOR_FONT_SIZE).toString(),
+    };
   }
+
   public render() {
     return (
       <Dialog
@@ -70,7 +74,7 @@ export default class PreferencesDialog extends React.Component<IPreferencesDialo
                   autorenderEnabled: newState,
                 });
               }}
-              className={cx([Classes.LARGE, Classes.FILL])}
+              className={cx([Classes.FILL])}
               label={this.state.autorenderEnabled ? "Enabled" : "Disabled"}
             />
           </FormGroup>
@@ -89,8 +93,26 @@ export default class PreferencesDialog extends React.Component<IPreferencesDialo
                   toolbarIconsEnabled: newState,
                 });
               }}
-              className={cx([Classes.LARGE, Classes.FILL])}
+              className={cx([Classes.FILL])}
               label={this.state.toolbarIconsEnabled ? "Enabled" : "Disabled"}
+            />
+          </FormGroup>
+          <FormGroup
+            helperText="Font size (in px) to use in the editor"
+            label="Font Size"
+            labelFor="editor-font-size"
+          >
+            <NumericInput
+              id="editor-font-size"
+              placeholder={"" + USER_DEFAULTS.EDITOR_FONT_SIZE}
+              value={this.state.editorFontSize}
+              onValueChange={(value: number) => {
+                this.setState({
+                  editorFontSize: value,
+                });
+                Settings.set(USER_SETTINGS.EDITOR_FONT_SIZE, value);
+              }}
+              className={Classes.FILL}
             />
           </FormGroup>
         </div>

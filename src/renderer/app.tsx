@@ -56,7 +56,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
       infoPanelSize: "99%",
       pdfIsPending: false,
       scale: "100%",
-      preferencesVisible: false,
+      preferencesVisible: true,
       autorenderEnabled: !!Settings.get(USER_SETTINGS.AUTORENDER_FLAG, USER_DEFAULTS.AUTORENDER_FLAG).valueOf(),
     };
   }
@@ -160,6 +160,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 }}
                 messages={this.state.messages}
                 scrollPosition={this.state.scrollToPosition}
+                editorFontSize={+Settings.get(USER_SETTINGS.EDITOR_FONT_SIZE, USER_DEFAULTS.EDITOR_FONT_SIZE).toString()}
               />
               <Output
                 path={this.state.path}

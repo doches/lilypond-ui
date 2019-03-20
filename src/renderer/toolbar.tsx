@@ -75,6 +75,7 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
               <Menu>
                 {map(this.props.scaleOptions, (opt: string) => (
                   <MenuItem
+                    key={opt}
                     text={opt}
                     active={opt === this.props.scale}
                     onClick={() => this.props.onChangeScale(opt)}
