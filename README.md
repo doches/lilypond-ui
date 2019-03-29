@@ -11,14 +11,16 @@
    * Adjustable two-up code and preview windows
    * Easy access to the raw LilyPond output, for debugging
 
-### Getting Started
+### Getting Started (for macOS, other platforms not (yet) supported).
 
-1. Install the OS X build of LilyPond from [http://lilypond.org/macos-x.html](http://lilypond.org/macos-x.html)
-2. Download [LilyPond Editor.dmg](https://texasexpat.net/LilyPond%20Editor.dmg)
-3. Open `LilyPond Editor.dmg` and drag **LilyPond Editor.app** into your `Applications` folder
+1. Install the macOS build of LilyPond from [http://lilypond.org/macos-x.html](http://lilypond.org/macos-x.html)
+2. Download the most recent `LilyPond.Editor.dmg` from the [GitHub releases](https://github.com/doches/lilypond-ui/releases).
+3. Open `LilyPond.Editor.dmg` and drag **LilyPond Editor.app** into your `Applications` folder
 4. Launch `LilyPond Editor`, open a score, and write!
 
 ### Useful Commands
 
 * Quickly save &amp; render the open score with `⌘s`
 * To just re-render the file (without saving any changes), hit `⌘r`
+* Start fresh with a new LilyPond source file with `⌘n`
+* Open a preferences window where you can tweak some settings with `⌘,`
