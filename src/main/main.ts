@@ -2,19 +2,30 @@ import { app, BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { Colors } from "@blueprintjs/core";
+import * as WindowState from "electron-window-state";
+
+const icon = require("../../artwork/icons.iconset/icon_128x128.png");
 
 let mainWindow: Electron.BrowserWindow;
 
 function createWindow() {
+    const mainWindowState = WindowState({
+      defaultWidth: 1000,
+      defaultHeight: 800
+    });
+
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        height: 600,
-        width: 800,
+        x: mainWindowState.x,
+        y: mainWindowState.y,
+        width: mainWindowState.width,
+        height: mainWindowState.height,
         backgroundColor: Colors.DARK_GRAY2,
         webPreferences: {
           nodeIntegration: true,
         },
         titleBarStyle: "default",
+        icon,
     });
 
     // and load the index.html of the app.
@@ -72,6 +83,8 @@ function createWindow() {
         // when you should delete the corresponding element.
         mainWindow = null;
     });
+
+    mainWindowState.manage(mainWindow);
 }
 
 // This method will be called when Electron has finished
