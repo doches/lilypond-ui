@@ -17,6 +17,7 @@ import { filter, map } from "lodash";
 import { USER_SETTINGS, USER_DEFAULTS } from "./userSettings";
 import { IMessage, ILinePosition } from "./types";
 import PreferencesDialog from "./preferencesDialog";
+import DefaultNewFile from "./defaultNewFile";
 
 import './app.less';
 
@@ -56,7 +57,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
       infoPanelSize: "99%",
       pdfIsPending: false,
       scale: "100%",
-      preferencesVisible: true,
+      preferencesVisible: false,
       autorenderEnabled: !!Settings.get(USER_SETTINGS.AUTORENDER_FLAG, USER_DEFAULTS.AUTORENDER_FLAG).valueOf(),
     };
   }
@@ -337,7 +338,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
     });
     if (outFile && outFile.length > 0) {
       this.setState({
-        code: "",
+        code: DefaultNewFile,
         path: outFile,
       });
       setTimeout(() => {
