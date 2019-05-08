@@ -60,6 +60,21 @@ export default class PreferencesDialog extends React.Component<IPreferencesDialo
             />
           </FormGroup>
           <FormGroup
+            helperText="The full path to your musicxml2ly executable"
+            label="MusicXML2ly path"
+            labelFor="musicxml2ly-path"
+          >
+            <InputGroup
+              id="musicxml2ly-path"
+              placeholder={USER_DEFAULTS.MUSICXML_CONVERTER_PATH}
+              defaultValue={Settings.get(USER_SETTINGS.MUSICXML_PATH, USER_DEFAULTS.MUSICXML_CONVERTER_PATH).toString()}
+              onChange={(event: any) => {
+                Settings.set(USER_SETTINGS.MUSICXML_PATH, event.target.value);
+              }}
+              className={Classes.FILL}
+            />
+          </FormGroup>
+          <FormGroup
             helperText="Enable to automatically render a fresh PDF after saving"
             label="Render on Save"
             labelFor="autorender-flag"

@@ -91,6 +91,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
       this.compile(this.state.path);
     });
     ipcRenderer.on("showPreferences", this.showPreferences);
+    ipcRenderer.on("convert-from-musicxml", this.startImportFromMusicXML);
   }
 
   componentWillReceiveProps(_: IAppProps, state: IAppState) {
@@ -219,7 +220,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this.compile(path);
       } else {
         Toast.show({
-          message: "Could not read file",
+          message: `Could not read ${path}`,
           intent: Intent.DANGER,
         });
 
@@ -348,9 +349,41 @@ export default class App extends React.Component<IAppProps, IAppState> {
   }
 
   public showPreferences = () => {
-    console.warn("show prefs");
     this.setState({
       preferencesVisible: !this.state.preferencesVisible,
     });
+  }
+
+  public startImportFromMusicXML = () => {
+    const outFile = dialog.showOpenDialog({
+      title: "Convert MusicXML to LilyPond",
+      filters: [
+        { name: "MusicXML", extensions: ["xml", "musicxml"] }
+      ]
+    });
+    
+    if (outFile && outFile.length > 0) {
+      const executable = Settings.get(USER_SETTINGS.MUSICXML_PATH, USER_DEFAULTS.MUSICXML_CONVERTER_PATH).toString();
+      let path = outFile[0];
+      const lilypondSource = path.replace(/\.[^\.]+$/, ".ly");
+      const cmd = `${executable} ${path} --output ${lilypondSource}`;
+      exec(cmd, (error, stdout, stderr) => {
+        console.log(stdout);
+        console.warn(stderr);
+        if (!error) {
+          Toast.show({
+            message: `Converted ${lilypondSource}`,
+            intent: Intent.SUCCESS,
+          });
+
+          this.loadSourceFile(lilypondSource);
+        } else {
+          Toast.show({
+            message: "Could not convert file",
+            intent: Intent.DANGER,
+          });
+        }
+      });
+    }
   }
 }

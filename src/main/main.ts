@@ -37,7 +37,7 @@ function createWindow() {
         })
     );
 
-    // And create the menu
+    // ...nd create the menu...
     const template = [{
         label: app.getName(),
         submenu: [
@@ -68,7 +68,11 @@ function createWindow() {
         label: "View",
         submenu: [
             { role: "togglefullscreen", accelerator: "Command+Control+F"},
-        ]}
+        ]}, {
+        label: "Tools",
+        submenu: [
+            { label: "Convert from MusicXML", click: () => { mainWindow.webContents.send("convert-from-musicxml"); } },
+        ]},
     ];
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template as any));
