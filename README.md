@@ -24,3 +24,15 @@
 * To just re-render the file (without saving any changes), hit `⌘r`
 * Start fresh with a new LilyPond source file with `⌘n`
 * Open a preferences window where you can tweak some settings with `⌘,`
+
+### Testimonials
+
+> I love this app!! I was frustrated trying to learn lilypond with my usual editor (vim) and kept having to switch back and forwards with to preview the pdf (compile, then alt-tab).
+> 
+> This editor allows me to 'auto-render' and preview my code at every save.
+> 
+> I hope you continue to develop this editor. It is so much faster and simpler than Frescobaldi (which I find a bit bloaty for my tastes)
+>
+> &mdash; <cite>[Philbywhizz][1]</cite>
+
+[1]: https://www.reddit.com/r/lilypond/comments/b3a4l9/frescobaldi_alternative_for_mac/
