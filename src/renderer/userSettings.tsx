@@ -5,6 +5,7 @@ export const USER_SETTINGS = {
   AUTORENDER_FLAG: "doAutoRender",
   TOOLBAR_ICONS_FLAG: "showToolbarIcons",
   EDITOR_FONT_SIZE: "editorFontSize",
+  INCLUDE_DIRECTORY: "includeDirectory",
 }
 
 export const USER_DEFAULTS = {

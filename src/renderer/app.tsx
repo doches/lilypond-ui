@@ -366,7 +366,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
       const executable = Settings.get(USER_SETTINGS.MUSICXML_PATH, USER_DEFAULTS.MUSICXML_CONVERTER_PATH).toString();
       let path = outFile[0];
       const lilypondSource = path.replace(/\.[^\.]+$/, ".ly");
-      const cmd = `${executable} ${path} --output ${lilypondSource}`;
+      const cmdOptions = [executable, path, "--output", lilypondSource];
+      const includeDirectory = Settings.get(USER_SETTINGS.INCLUDE_DIRECTORY, null);
+      if (includeDirectory) {
+        cmdOptions.push("--include", `"${includeDirectory}"`);
+      }
+      const cmd = cmdOptions.join(" ");
       exec(cmd, (error, stdout, stderr) => {
         console.log(stdout);
         console.warn(stderr);
