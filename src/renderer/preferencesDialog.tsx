@@ -75,6 +75,22 @@ export default class PreferencesDialog extends React.Component<IPreferencesDialo
             />
           </FormGroup>
           <FormGroup
+            helperText="The full path to a directory of .ly files to include when compiling scores."
+            label="Include directory"
+            labelFor="include-path"
+            labelInfo="(optional)"
+          >
+            <InputGroup
+              id="include-path"
+              placeholder={""}
+              defaultValue={Settings.get(USER_SETTINGS.INCLUDE_DIRECTORY, "").toString()}
+              onChange={(event: any) => {
+                Settings.set(USER_SETTINGS.INCLUDE_DIRECTORY, event.target.value);
+              }}
+              className={Classes.FILL}
+            />
+          </FormGroup>
+          <FormGroup
             helperText="Enable to automatically render a fresh PDF after saving"
             label="Render on Save"
             labelFor="autorender-flag"
