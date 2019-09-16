@@ -9,7 +9,7 @@
   },
   "scripts": {
     "clean": "rimraf dist && rimraf artifacts && rimraf 'LilyPond Editor-darwin-x64'",
-    "start": "electron ./dist/main.bundle.js",
+    "start": "electron-cli start ./dist/main.bundle.js",
     "dev": "rimraf dist && webpack --watch --config ./webpack.dev.js --progress --colors",
     "build": "npm-run-all clean make-app dmg",
     "make-app": "npm-run-all prod package package-icon",
@@ -28,7 +28,8 @@
     "@types/react-dom": "^16.8.2",
     "@types/react-js-pagination": "^3.0.2",
     "css-loader": "^2.1.1",
-    "electron": "4.1.0",
+    "electron": "6.0.9",
+    "electron-cli": "^0.2.8",
     "electron-installer-dmg": "^2.0.0",
     "electron-packager": "^13.1.1",
     "file-loader": "^3.0.1",
