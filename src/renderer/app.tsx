@@ -325,9 +325,9 @@ export default class App extends React.Component<IAppProps, IAppState> {
         {name: "LilyPond Source", extensions: ["ly", "lilypond"]}
       ]
     });
-    if (files && files.length === 1) {
-      this.loadSourceFile(files[0]);
-    }
+    files.then((value: Electron.OpenDialogReturnValue) => {
+      this.loadSourceFile(value.filePaths[0]);
+    });
   }
 
   public newFile = () => {
@@ -337,15 +337,15 @@ export default class App extends React.Component<IAppProps, IAppState> {
         {name: "LilyPond Source", extensions: ["ly", "lilypond"]}
       ]
     });
-    if (outFile && outFile.length > 0) {
+    outFile.then((value: Electron.SaveDialogReturnValue) => {
       this.setState({
         code: DefaultNewFile,
-        path: outFile,
+        path: value.filePath,
       });
       setTimeout(() => {
-        this.saveSourceFile(outFile, true);
+        this.saveSourceFile(value.filePath, true);
       }, 200);
-    }
+    });
   }
 
   public showPreferences = () => {
@@ -362,9 +362,9 @@ export default class App extends React.Component<IAppProps, IAppState> {
       ]
     });
     
-    if (outFile && outFile.length > 0) {
+    outFile.then((value: Electron.OpenDialogReturnValue) => {
       const executable = Settings.get(USER_SETTINGS.MUSICXML_PATH, USER_DEFAULTS.MUSICXML_CONVERTER_PATH).toString();
-      let path = outFile[0];
+      let path = value.filePaths[0];
       const lilypondSource = path.replace(/\.[^\.]+$/, ".ly");
       const cmdOptions = [executable, path, "--output", lilypondSource];
       const includeDirectory = Settings.get(USER_SETTINGS.INCLUDE_DIRECTORY, null);
@@ -389,6 +389,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
           });
         }
       });
-    }
+    });
   }
 }
