@@ -45,13 +45,13 @@
     "webpack-cli": "^3.3.0"
   },
   "dependencies": {
-    "@blueprintjs/core": "^3.14.1",
+    "@blueprintjs/core": "3.33.0",
     "classnames": "^2.2.6",
     "codemirror": "^5.44.0",
     "codemirror-atom-modes": "^1.1.1",
     "electron-settings": "^3.2.0",
     "electron-window-state": "^5.0.3",
-    "lodash": "4.17.15",
+    "lodash": "4.17.20",
     "mousetrap": "^1.6.3",
     "react": "^16.8.4",
     "react-codemirror2": "^5.1.0",
